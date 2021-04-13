@@ -80,10 +80,8 @@ function ServerSecurity({ security, asyncapi }) {
     entry.description() || '-',
   ];
 
-  const components = asyncapi.components();
   const securityData = security.map(s => {
-    const key = Object.keys(s.json())[0];
-    return components.securityScheme(key);
+    return s.securityScheme();
   });
   
   return (

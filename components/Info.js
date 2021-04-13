@@ -16,9 +16,9 @@ export function Info({ asyncapi, params }) {
         </Text>
       )}
 
-      {info.hasExt('x-logo') && (
+      {info.hasExtension('x-logo') && (
         <Text>
-          <Image src={info.ext('x-logo')} desc={`${info.title()} logo`} />
+          <Image src={info.extension('x-logo')} desc={`${info.title()} logo`} />
         </Text>
       )}
     </>

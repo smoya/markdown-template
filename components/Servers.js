@@ -52,15 +52,11 @@ function ServerVariables({ variables }) {
     variable.hasAllowedValues() ? variable.allowedValues().join(', ') : 'Any',
     variable.description() || '-',
   ];
-  const variablesData = Object.entries(variables).map(([variableName, variable]) => {
-    variable.name = variableName;
-    return variable;
-  });
 
   return (
     <Text>
       <Header type={4}>URL Variables</Header>
-      <Table headers={variableHeader} rowRenderer={variableRenderer} data={variablesData} />
+      <Table headers={variableHeader} rowRenderer={variableRenderer} data={variables} />
     </Text>
   );
 }

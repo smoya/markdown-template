@@ -33,12 +33,7 @@ function Channel({ channelName, channel }) {
       {channel.hasParameters() && (
         <Parameters parameters={channel.parameters()} />
       )}
-      {channel.hasPublish() && (
-        <Operation operation={channel.publish()} />
-      )}
-      {channel.hasSubscribe() && (
-        <Operation operation={channel.subscribe()} />
-      )}
+      {channel.operations().forEach(op => {<Operation operation={op} />})}
     </Text>
   );
 }

@@ -39,14 +39,12 @@ function Channel({ channelName, channel }) {
 }
 
 function Parameters({ parameters }) {
-  const params = Object.entries(parameters).map(([paramName, param]) => (
-    <Schema schema={param.schema()} schemaName={paramName} description={param.description()} hideTitle={true} />
-  ));
-
   return (
     <Text>
       <Header type={4}>Channel Parameters</Header>
-      {params}
+      {parameters.forEach(param => {
+        <Schema schema={param.schema()} schemaName={param.name()} description={param.description()} hideTitle={true} />
+      })}
     </Text>
   );
 }

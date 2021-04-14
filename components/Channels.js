@@ -5,25 +5,21 @@ import { Message } from "./Message";
 import { Schema } from "./Schema";
 
 export function Channels({ asyncapi }) {
-  const channels = Object.entries(asyncapi.channels()).map(([channelName, channel]) => (
-    <Channel channelName={channelName} channel={channel} />
-  ));
-
   return (
     <>
       <Header type={2}>
         Channels
       </Header>
-      {channels}
+      {asyncapi.channels().map(channel => {return  <Channel channel={channel} />})}
     </>
   );
 }
 
-function Channel({ channelName, channel }) {
+function Channel({ channel }) {
   return (
     <Text>
       <Header type={3}>
-        {`**${channelName}** Channel`}
+        {`**${channel.name()}** Channel`}
       </Header>
       {channel.hasDescription() && (
         <Text newLines={2}>
@@ -33,7 +29,7 @@ function Channel({ channelName, channel }) {
       {channel.hasParameters() && (
         <Parameters parameters={channel.parameters()} />
       )}
-      {channel.operations().forEach(op => {<Operation operation={op} />})}
+      {channel.operations().map(op => {return <Operation operation={op} />})}
     </Text>
   );
 }
@@ -42,18 +38,17 @@ function Parameters({ parameters }) {
   return (
     <Text>
       <Header type={4}>Channel Parameters</Header>
-      {parameters.forEach(param => {
-        <Schema schema={param.schema()} schemaName={param.name()} description={param.description()} hideTitle={true} />
+      {parameters.map(param => {
+        return <Schema schema={param.schema()} schemaName={param.name()} description={param.description()} hideTitle={true} />
       })}
     </Text>
   );
 }
 
 function Operation({ operation }) {
-  const type = operation.isPublish() ? 'publish' : 'subscribe';
   return (
     <Text>
-      <Header type={4}>{`\`${type}\` Operation`}</Header>
+      <Header type={4}>{`\`${operation.type()}\` Operation`}</Header>
       {operation.summary() && (
         <Text newLines={2}>
           *{operation.summary()}*
@@ -74,7 +69,7 @@ function Operation({ operation }) {
           ))}
         </>
       ) : (
-        <Message title='Message' message={operation.message(0)} />
+        <Message title='Message' message={operation.messages[0]} />
       )}
     </Text>
   );

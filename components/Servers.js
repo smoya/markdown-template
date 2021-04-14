@@ -6,21 +6,20 @@ export function Servers({ asyncapi }) {
   if (!asyncapi.hasServers()) {
     return null;
   }
-  const servers = Object.entries(asyncapi.servers()).map(([serverName, server]) => (
-    <Server serverName={serverName} server={server} asyncapi={asyncapi} />
-  ));
 
   return (
     <>
       <Header type={2}>
         Servers
       </Header>
-      {servers}
+      {asyncapi.servers().map(server => {
+        return <Server server={server} asyncapi={asyncapi} />
+      })}
     </>
   );
 }
 
-function Server({ serverName, server, asyncapi }) {
+function Server({ server, asyncapi }) {
   const headers = ['URL', 'Protocol', 'Description'];
   const rowRenderer = (entry) => [
     entry.url(),
@@ -31,7 +30,7 @@ function Server({ serverName, server, asyncapi }) {
   return (
     <>
       <Text>
-        <Header type={3}>{`**${serverName}** Server`}</Header>
+        <Header type={3}>{`**${server.name()}** Server`}</Header>
         <Table headers={headers} rowRenderer={rowRenderer} data={[server]} />
       </Text>
       <ServerVariables variables={server.variables()} />

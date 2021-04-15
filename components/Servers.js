@@ -46,7 +46,7 @@ function ServerVariables({ variables }) {
 
   const variableHeader = ['Name', 'Default value', 'Possible values', 'Description'];
   const variableRenderer = (variable) => [
-    variable.name || '-',
+    variable.name() || '-',
     variable.hasDefaultValue() ? variable.defaultValue() : '*None*',
     variable.hasAllowedValues() ? variable.allowedValues().join(', ') : 'Any',
     variable.description() || '-',

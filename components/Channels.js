@@ -19,7 +19,7 @@ function Channel({ channel }) {
   return (
     <Text>
       <Header type={3}>
-        {`**${channel.name()}** Channel`}
+        {`**${channel.path()}** Channel`}
       </Header>
       {channel.hasDescription() && (
         <Text newLines={2}>

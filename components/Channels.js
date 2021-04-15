@@ -48,7 +48,7 @@ function Parameters({ parameters }) {
 function Operation({ operation }) {
   return (
     <Text>
-      <Header type={4}>{`\`${operation.type()}\` Operation`}</Header>
+      <Header type={4}>{`\`${operation.id()}\` (\`${operation.type()}\`) Operation`}</Header>
       {operation.summary() && (
         <Text newLines={2}>
           *{operation.summary()}*
